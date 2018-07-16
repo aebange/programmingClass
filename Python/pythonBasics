@@ -12,8 +12,7 @@
 
 #### General concepts to understand
 -  **Methods:** Functions that are attached to and act upon a specific object and are called with an expression
-    - S = 'Spam', S.find(pa) >> 1 ('find' is the method and it works on strings)
-
+    - `S = 'Spam'`, `S.find(pa) >> 1 `('find' is the method and it works on strings)
 
 #### Python Data Types
 -  **Numbers:**
@@ -30,6 +29,8 @@
         - `S = 'Spam'`, `S[0] = 'z' >>> ...error text omitted...`
     - Sequence Operations: A word contained in a string acts as though each character is a separate string.
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
+    - Single vs Double Quotes: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
+        - `S = 'And now for something "completely" different.'`
 -  **Lists:**
     - [1, [2, 'three'], 4.5],list(range(10))
 -  **Dictionaries:**
