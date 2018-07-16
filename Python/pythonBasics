@@ -31,7 +31,8 @@
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
     - Single vs Double Quotes: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
         - `S = 'And now for something "completely" different.'`
--  **Lists:**
+-  **Lists:** Positionally ordered collections of arbitrarily typed objects.
+    - Sequence Operations: Items contained in a list act as though each item is separate. 
     - [1, [2, 'three'], 4.5],list(range(10))
 -  **Dictionaries:**
     - {'food': 'spam', 'taste': 'yum'},dict(hours=10)
