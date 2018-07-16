@@ -10,18 +10,26 @@
     - If the system fails to compile a Byte code file, the program will still successfully execute, however the process will take place at a slower pace since a new Byte code file will need to be created each time the program is run. 
 -  **Python Virtual Machine (PVM)**: The massive loop of code that makes up the runtime engine of python. The PVM is the "final step" of the Python interpreter.
 
+#### General concepts to understand
+-  **Methods:** Functions that are attached to and act upon a specific object and are called with an expression
+    - S = 'Spam', S.find(pa) >> 1 ('find' is the method and it works on strings)
+
+
 #### Python Data Types
 -  **Numbers:**
     - Integer (int(x)): Whole numbers that have no decimals.
-        - 1234, 5, -666, 13
+        - `1234, 5, -666, 13`
     - Long (long(x)): An integer that is infinite in size
-        - 51924361L
-    - Floats (float(x)): Numbers that do have decimals.
-        - 3.1415, 100.5, -237.0145
+        - `51924361L`
+    - Float (float(x)): Numbers that do have decimals.
+        - `3.1415, 100.5, -237.0145`
     - Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
-        - (3+1j), (2+4j)
+        - `(3+1j)`, `(2+4j)`
 -  **Strings:** Text used to contain information as well as arbitrary collections of bytes.
-    - 'Spam', "Confuse a cat", b'a\x01C', u'sp\xc4m'
+    - Immutability: Strings are immutable and cannot be overwritten. 
+        - `S = 'Spam'`, `S[0] = 'z' >>> ...error text omitted...`
+    - Sequence Operations: A word contained in a string acts as though each character is a separate string.
+        - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
 -  **Lists:**
     - [1, [2, 'three'], 4.5],list(range(10))
 -  **Dictionaries:**
