@@ -12,8 +12,15 @@
 
 #### Python Data Types
 -  **Numbers:**
-    - 1234, 3.1415, 3+4j, Ob111, Decimal(), Fraction()
--  **Strings:**
+    - Integer (int(x)): Whole numbers that have no decimals.
+        - 1234, 5, -666, 13
+    - Long (long(x)): An integer that is infinite in size
+        - 51924361L
+    - Floats (float(x)): Numbers that do have decimals.
+        - 3.1415, 100.5, -237.0145
+    - Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
+        - (3+1j), (2+4j)
+-  **Strings:** Text used to contain information as well as arbitrary collections of bytes.
     - 'Spam', "Confuse a cat", b'a\x01C', u'sp\xc4m'
 -  **Lists:**
     - [1, [2, 'three'], 4.5],list(range(10))
@@ -28,3 +35,4 @@
 -  **Booleans:**
     - True, False
 -  **Types:**
+
