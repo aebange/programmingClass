@@ -20,22 +20,22 @@
 
 ### Python Data Types
 -  **Numbers:**
-    - **Integer (int(x)):** Whole numbers that have no decimals.
+    - **Integer (int(x)): Whole numbers that have no decimals.
         - `1234, 5, -666, 13`
-    - **Long (long(x)):** An integer that is infinite in size
+    - **Long (long(x)): An integer that is infinite in size
         - `51924361L`
-    - **Float (float(x)):** Numbers that do have decimals.
+    - **Float (float(x)): Numbers that do have decimals.
         - `3.1415, 100.5, -237.0145`
-    - **Complex (complex(x,y)):** All numbers are expressed as a sum of a real part and an imaginary part.
+    - **Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
         - `(3+1j)`, `(2+4j)`
 -  **Strings:** Text used to contain information as well as arbitrary collections of bytes.
-    - Immutability:** Strings are immutable and cannot be overwritten. 
+    - Immutability: Strings are immutable and cannot be overwritten. 
         - `S = 'Spam'`, `S[0] = 'z' >>> ...error text omitted...`
-    - Sequence Operations:** A word contained in a string acts as though each character is a separate string.
+    - Sequence Operations: A word contained in a string acts as though each character is a separate string.
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
-    - Single vs Double Quotes:** Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
+    - Single vs Double Quotes: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
         - `S = 'And now for something "completely" different.'`
--  #####Lists: Positionally ordered collections of arbitrarily typed objects.
+-  **Lists:** Positionally ordered collections of arbitrarily typed objects.
     - Sequence Operations: Items contained in a list act as though each whole item is separate. 
         - `S = [1, 2, 3, 'pie']`, `S[3] >>> 'pie'`, `len(S) >>> 4`
     - Common Methods:
