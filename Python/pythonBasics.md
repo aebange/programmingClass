@@ -13,6 +13,10 @@
 ### General concepts to understand
 -  **Methods:** Functions that are attached to and act upon a specific object and are called with an expression
     - `S = 'Spam'`, `S.find(pa) >> 1 `('find' is the method and it works on strings)
+-  **Getting help:** Whenever curious about a function or method, simply type help(x.function) to see the syntax in the interpreter. Results will vary depending on the object type of the variable used.
+    - `S = [1,2,3,"four]`, `help(S.insert)`
+-  **Nesting:** Objects of any type can be nested within eachother. So lists can be nested in lists can be nested in dictionaries can be nested in lists. 
+    - `L = [1,2,3,4]`, `X = ["A","B","C"]`, `L.append(X) >>> L >>> [1,2,3,4,["A","B","C"]]`
 
 ### Python Data Types
 -  **Numbers:**
@@ -32,8 +36,25 @@
     - Single vs Double Quotes: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
         - `S = 'And now for something "completely" different.'`
 -  **Lists:** Positionally ordered collections of arbitrarily typed objects.
-    - Sequence Operations: Items contained in a list act as though each item is separate. 
-    - [1, [2, 'three'], 4.5],list(range(10))
+    - Sequence Operations: Items contained in a list act as though each whole item is separate. 
+        - `S = [1, 2, 3, 'pie']`, `S[3] >>> 'pie'`, `len(S) >>> 4`
+    - Common Methods:
+        - x.append("text"): Adds a single object to the end of a list.
+        - x.pop(#): Deletes an object in the specified list offset. 
+        - x.insert(#,"text"): Adds a single object to a specified list offset.
+        - x.remove("text"): Removes a single specified object.
+        - x.sort(): Sorts list items based on alphabetic and numeric order.
+        - x.reverse(): Sorts list items in reverse of the format used in list.sort.
+    - Bounds checking: Python requires modifications to lists to be made using methods. 
+    - Matrix: A two dimensional set of lists contained in a list.
+        - `M = [[1,2,3], [4,5,6], [7,8,9]]`
+    - Matrix Comprehensions: Ways of retrieving information from a Matrix.
+        - `col2 = [row[1] for row in M]`, `col2 >>> [2,5,8]` (creates a "for" loop that collects items from row[1] in M)
+        - `row2 = M[1]`, `row2 >>> [1,2,3]`
+        - `G = (sum(row))`, `next(G) >>> 6`, `next(G) >>> 15`, `next(G) >>> 24`, `next(G) >>> error` (out of rows)
+        - `list(range(4)) >>> [0,1,2,3]`, `list(range{-7,7,2)) >>> [-6,-4,-2,0,2,4,6]`
+        - `list(map(sum, M)) >> [6, 15, 24]`
+        - `(sum(row) for row in M) >>> {24, 6, 15}`
 -  **Dictionaries:**
     - {'food': 'spam', 'taste': 'yum'},dict(hours=10)
 -  **Tuples:**
