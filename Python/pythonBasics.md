@@ -1,7 +1,7 @@
-### Objectives
+## Objectives
 1. Define the basics of understanding and using the Python (3) programming language
 
-#### How and why Python works
+### How and why Python works
 -  **The interpreter:**  takes the text from a Python program file (.py) and decodes the contained Python statements (from the top of the file to the bottom) into commands that it then executes. 
 -  **Byte code:** is created when a Python program file is executed. The commands contained inside of the file are compiled into this lower level platform-independent representation by decomposing them into individual steps. This is done to increase the speed of the program's execution as Byte code can be read and executed faster than raw Python source code.
     - Byte code can be generally found in a subdirectory called ``__pycache__`` located within the same directory as their source files. 
@@ -10,11 +10,11 @@
     - If the system fails to compile a Byte code file, the program will still successfully execute, however the process will take place at a slower pace since a new Byte code file will need to be created each time the program is run. 
 -  **Python Virtual Machine (PVM)**: The massive loop of code that makes up the runtime engine of python. The PVM is the "final step" of the Python interpreter.
 
-#### General concepts to understand
+### General concepts to understand
 -  **Methods:** Functions that are attached to and act upon a specific object and are called with an expression
     - `S = 'Spam'`, `S.find(pa) >> 1 `('find' is the method and it works on strings)
 
-#### Python Data Types
+### Python Data Types
 -  **Numbers:**
     - Integer (int(x)): Whole numbers that have no decimals.
         - `1234, 5, -666, 13`
