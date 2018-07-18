@@ -15,8 +15,9 @@
     - `S = 'Spam'`, `S.find(pa) >> 1 `('find' is the method and it works on strings)
 -  **Getting help:** Whenever curious about a function or method, simply type help(x.function) to see the syntax in the interpreter. Results will vary depending on the object type of the variable used.
     - `S = [1,2,3,"four]`, `help(S.insert)`
--  **Nesting:** Objects of any type can be nested within eachother. So lists can be nested in lists can be nested in dictionaries can be nested in lists. 
+-  **Nesting:** Objects of any type can be nested within each other. So lists can be nested in lists can be nested in dictionaries can be nested in lists. 
     - `L = [1,2,3,4]`, `X = ["A","B","C"]`, `L.append(X) >>> L >>> [1,2,3,4,["A","B","C"]]`
+-  **Sequences vs Mappings:** Sequences store items and information based on relative position, whereas mappings store information based on keys.
 
 ### Python Data Types
 -  **Numbers:**
@@ -55,8 +56,15 @@
         - `list(range(4)) >>> [0,1,2,3]`, `list(range{-7,7,2)) >>> [-6,-4,-2,0,2,4,6]`
         - `list(map(sum, M)) >> [6, 15, 24]`
         - `(sum(row) for row in M) >>> {24, 6, 15}`
--  **Dictionaries:**
-    - {'food': 'spam', 'taste': 'yum'},dict(hours=10)
+    - Mutability: Lists can be changed and have their data overwritten.
+-  **Dictionaries:** A list that stores information based on its relative key rather than its position in the list.
+    - Mutability: Dictionaries can be changed and have their data overwritten.
+        - `D = {'quantity': 1, 'money': 2}`, `D['quantity'] +=1`, `D >>> 2`
+    - Mapping Operations: Items can be manipulated, called from, and added to the dictionary based on their relative keys.
+        - `D = {}` , `D['name'] = 'Bob'`, `D['job'] = "Developer"`, `D['age'] = 40`, `D['age'] += 1`, `D >>> {'name': 'Bob', 'job': 'Developer', 'age': 41}`
+        - `bob1 = dict(name='Bob, job='dev', age=40)` (Dictionaries can be forced in this way)
+    - Merging Values with their Keys: Lists of keys can be combined into a single dictionary via "Zipping".
+        - `bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))`
 -  **Tuples:**
     - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 -  **Files:**
