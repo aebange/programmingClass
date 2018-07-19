@@ -63,8 +63,16 @@
     - Mapping Operations: Items can be manipulated, called from, and added to the dictionary based on their relative keys.
         - `D = {}` , `D['name'] = 'Bob'`, `D['job'] = "Developer"`, `D['age'] = 40`, `D['age'] += 1`, `D >>> {'name': 'Bob', 'job': 'Developer', 'age': 41}`
         - `bob1 = dict(name='Bob, job='dev', age=40)` (Dictionaries can be forced in this way)
-    - Merging Values with their Keys: Lists of keys can be combined into a single dictionary via "Zipping".
-        - `bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))`
+    - Merging Values with their Keys: Lists of keys can be combined into a single dictionary via "Zipping". This process does not order the keys as intended as dictionaries are mappings.
+        - `bob2 = dict(zip(['name', 'job', 'age'], ['Bob', 'dev', 40]))`, `bob2 >>> {'name': 'Bob', 'job': 'dev', 'age': 40}`
+    - Nested Dictionaries: Because of nesting in Python, dictionaries and lists can be stored within each other. There are particular ways to access data within data.
+        - `D = {'name': {'first': 'Bob', 'last': 'Smith'}, 'jobs': ['dev', 'mgr'], 'age' : 40.5}`
+        - dict['key']: Calls a key from a dictionary.
+            - `D['name'] >>> {'first': 'Bob', 'last': 'Smith'}`
+        - dict['key1']['key2']: Calls a key from within a key and can be done infinite times.
+            - `D['name']['last'] >>> 'Smith'`
+        - dict['key1'].method('item'): Depending on the data type being used, nested items can still have their methods used as long as their keys are called first.
+            - `D['jobs'].append('spanish inquisitor')`, `D['jobs'] >>> ('dev, 'mgr', 'spanish inquisitor')` ('jobs' contained list items, allowing the use of the list.append() method)
 -  **Tuples:**
     - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 -  **Files:**
