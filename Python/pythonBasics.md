@@ -18,7 +18,9 @@
 -  **Nesting:** Objects of any type can be nested within each other. So lists can be nested in lists can be nested in dictionaries can be nested in lists. 
     - `L = [1,2,3,4]`, `X = ["A","B","C"]`, `L.append(X) >>> L >>> [1,2,3,4,["A","B","C"]]`
 -  **Sequences vs Mappings:** Sequences store items and information based on relative position, whereas mappings store information based on keys.
-
+-  **Garbage Collection:** Data that is no longer being used or referenced is deleted.
+    - `x = (1,2,3)`, `x >>> (1,2,3)`, `x = 0`, `x >>> 0` (The (1,2,3) was deleted since its reference was removed.)
+-  **Statement blocks:** When creating a statement that contains multiple items, Python automatically detects the indentation on the block and deduces what commands are part of the statement.
 ### Python Data Types
 -  **Numbers:**
     - **Integer (int(x)): Whole numbers that have no decimals.
@@ -73,6 +75,11 @@
             - `D['name']['last'] >>> 'Smith'`
         - dict['key1'].method('item'): Depending on the data type being used, nested items can still have their methods used as long as their keys are called first.
             - `D['jobs'].append('spanish inquisitor')`, `D['jobs'] >>> ('dev, 'mgr', 'spanish inquisitor')` ('jobs' contained list items, allowing the use of the list.append() method)
+    - Common Methods:
+        - Testing for keys: Python allows the use of conditional statements and booleans to test for existing keys within Dictionary structures. 
+            - `D = {'a': 1, 'c' :3, 'b' : 2}`
+                - `'f' in D >>> false`
+                - `if not 'f' in D: print('missing') >>> missing`
 -  **Tuples:**
     - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 -  **Files:**
