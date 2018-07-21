@@ -9,6 +9,7 @@
     - Because python uses Byte code, **there is no need to build or make a program before it's execution.**
     - If the system fails to compile a Byte code file, the program will still successfully execute, however the process will take place at a slower pace since a new Byte code file will need to be created each time the program is run. 
 -  **Python Virtual Machine (PVM)**: The massive loop of code that makes up the runtime engine of python. The PVM is the "final step" of the Python interpreter.
+-  **Iterable Objects:** An object is iterable if it is physically stored in sequence in memory or an object that generates one item at a time.
 
 ### General concepts to understand
 -  **Methods:** Functions that are attached to and act upon a specific object and are called with an expression
@@ -32,13 +33,14 @@
     - **Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
         - `(3+1j)`, `(2+4j)`
 -  **Strings:** Text used to contain information as well as arbitrary collections of bytes.
+    - Syntax: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
+        - `S = 'And now for something "completely" different.'`
     - Immutability: Strings are immutable and cannot be overwritten. 
         - `S = 'Spam'`, `S[0] = 'z' >>> ...error text omitted...`
     - Sequence Operations: A word contained in a string acts as though each character is a separate string.
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
-    - Single vs Double Quotes: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
-        - `S = 'And now for something "completely" different.'`
 -  **Lists:** Positionally ordered collections of arbitrarily typed objects.
+    - Syntax: Lists are coded in parenthesis.
     - Sequence Operations: Items contained in a list act as though each whole item is separate. 
         - `S = [1, 2, 3, 'pie']`, `S[3] >>> 'pie'`, `len(S) >>> 4`
     - Common Methods:
@@ -60,6 +62,7 @@
         - `(sum(row) for row in M) >>> {24, 6, 15}`
     - Mutability: Lists can be changed and have their data overwritten.
 -  **Dictionaries:** A list that stores information based on its relative key rather than its position in the list.
+    - Syntax: Dictionaries are coded in curled brackets. 
     - Mutability: Dictionaries can be changed and have their data overwritten.
         - `D = {'quantity': 1, 'money': 2}`, `D['quantity'] +=1`, `D >>> 2`
     - Mapping Operations: Items can be manipulated, called from, and added to the dictionary based on their relative keys.
@@ -80,7 +83,9 @@
             - `D = {'a': 1, 'c' :3, 'b' : 2}`
                 - `'f' in D >>> false`
                 - `if not 'f' in D: print('missing') >>> missing`
--  **Tuples:**
+-  **Tuples:** A list that cannot be changed.
+    - Syntax: Tuples are coded in parenthesis akin to their list counterparts.
+    - Immutability: Tuples are immutable and cannot be changed.
     - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 -  **Files:**
     - open('eggs.txt'),open(r'C:\ham.bin', 'wb')
