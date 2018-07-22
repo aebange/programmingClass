@@ -24,13 +24,13 @@
 -  **Statement blocks:** When creating a statement that contains multiple items, Python automatically detects the indentation on the block and deduces what commands are part of the statement.
 ### Python Data Types
 -  **Numbers:**
-    - **Integer (int(x)): Whole numbers that have no decimals.
+    - Integer (int(x)): Whole numbers that have no decimals.
         - `1234, 5, -666, 13`
-    - **Long (long(x)): An integer that is infinite in size
+    - Long (long(x)): An integer that is infinite in size
         - `51924361L`
-    - **Float (float(x)): Numbers that do have decimals.
+    - Float (float(x)): Numbers that do have decimals.
         - `3.1415, 100.5, -237.0145`
-    - **Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
+    - Complex (complex(x,y)): All numbers are expressed as a sum of a real part and an imaginary part.
         - `(3+1j)`, `(2+4j)`
 -  **Strings:** Text used to contain information as well as arbitrary collections of bytes.
     - Syntax: Single quotes should be used to contain the string, double quotes should be used as normal quotes inside of the string.
@@ -86,13 +86,18 @@
 -  **Tuples:** Very similar to a list that cannot be changed.
     - Syntax: Tuples are coded in parenthesis akin to their list counterparts.
     - Immutability: Tuples are immutable and cannot be changed.
-    - Methods: Tuples have separate and fewer method options compared to lists. 
-    - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
--  **Files:**
-    - open('eggs.txt'),open(r'C:\ham.bin', 'wb')
+    - Methods: Tuples have separate and fewer method options compared to lists.
+-  **Files:** A file external of the program that can be used to contain data.
+    - Common Methods:
+        - `x = open('y.extension', 'w')`: Create and open a new file, the 'w' parameter defines that the file should be written.
+        - `x.write('Hello\n')`: Write to the opened file the contained text. 
+        - `x.close()`: Closes and flushes output to the file.
+        - `x = open('y.extension')`: Reopens the file without writing a new one.
+        - `t = f.read()`: Outputs the file's text to the defined variable.     
 -  **Sets:**
     - set('abc'),{'a', 'b', 'c'}
 -  **Booleans:**
     - True, False
 -  **Types:**
+               
 
