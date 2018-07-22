@@ -39,6 +39,11 @@
         - `S = 'Spam'`, `S[0] = 'z' >>> ...error text omitted...`
     - Sequence Operations: A word contained in a string acts as though each character is a separate string.
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
+    - Importing other objects: Strings can have objects imported into them.
+        - %s: Imports a string into the string.
+            - `S = ('Your favorite color is %s mixed with %s' ('blue','red'))`, `S >>> 'Your favorite color is blue mixed with red'`
+        - %d: Imports a numerical value.
+            - `S = ('Your favorite number is %d added to %d' (9, 10))`, `Your favorite number is  added to 10'`
 -  **Lists:** Positionally ordered collections of arbitrarily typed objects.
     - Syntax: Lists are coded in brackets - NOT in parenthesis.
     - Sequence Operations: Items contained in a list act as though each whole item is separate. 
