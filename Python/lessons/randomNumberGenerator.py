@@ -1,13 +1,13 @@
 import random
 import sys
 import os
-minimumNumber = 1
-maximumNumber = 100
+import os.path
+MINIMUM_NUMBER = 1
+MAXIMUM_NUMBER = 100
 totalGuessed = 0
 # Create the random number
-randomNumber = random.randint(minimumNumber,maximumNumber)
+randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 print("Welcome to the guessing game!")
-
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
 def get_clean_number(min, max):
@@ -34,7 +34,7 @@ def get_clean_number(min, max):
 
 while True:
     # Passes the parameters for min and max into the function get_clean_number()
-    cleanGuess = get_clean_number(minimumNumber, maximumNumber)
+    cleanGuess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
     # Adds to the number of total times the user guessed by 1
     totalGuessed += 1
 
