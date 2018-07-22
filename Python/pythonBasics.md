@@ -104,5 +104,14 @@
 -  **Booleans:**
     - True, False
 -  **Types:**
-               
+-  **Functions:** Not a core data type, contains a set of commands that can be called for repeated use.
+
+### Loops
+-  **While Loops:** A loop that will continue to run while an object is equal to a defined parameter.
+    - Infinite Loops: A While loop can be set to run infinitely.
+        - `While True:`
+    - Booleans: A While loop will always assume that it should operate while the defined object(s) are equal to True.
+        - `While fakeVariable:` (really is `While fakeVariable = True:`)
+-  **Conditional Statements:** Will check to see if a defined object meets the terms of a defined parameter.
+-  **For Loops:**
 
