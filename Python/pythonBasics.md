@@ -40,7 +40,7 @@
     - Sequence Operations: A word contained in a string acts as though each character is a separate string.
         - `S = 'Spam'`, `len(S) >>> 4`, `S[0] >>> 'S'`, `S[3] >>> 'm'`
 -  **Lists:** Positionally ordered collections of arbitrarily typed objects.
-    - Syntax: Lists are coded in parenthesis.
+    - Syntax: Lists are coded in brackets - NOT in parenthesis.
     - Sequence Operations: Items contained in a list act as though each whole item is separate. 
         - `S = [1, 2, 3, 'pie']`, `S[3] >>> 'pie'`, `len(S) >>> 4`
     - Common Methods:
@@ -83,9 +83,10 @@
             - `D = {'a': 1, 'c' :3, 'b' : 2}`
                 - `'f' in D >>> false`
                 - `if not 'f' in D: print('missing') >>> missing`
--  **Tuples:** A list that cannot be changed.
+-  **Tuples:** Very similar to a list that cannot be changed.
     - Syntax: Tuples are coded in parenthesis akin to their list counterparts.
     - Immutability: Tuples are immutable and cannot be changed.
+    - Methods: Tuples have separate and fewer method options compared to lists. 
     - (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 -  **Files:**
     - open('eggs.txt'),open(r'C:\ham.bin', 'wb')
