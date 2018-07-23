@@ -99,6 +99,9 @@
         - `x.close()`: Closes and flushes output to the file.
         - `x = open('y.extension')`: Reopens the file without writing a new one.
         - `t = f.read()`: Outputs the file's text to the defined variable.     
+    - Using the .os methods
+        - `x = os.path.join('path', 'filename')`
+        - `os.makedirs('filepath')`
 -  **Sets:**
     - set('abc'),{'a', 'b', 'c'}
 -  **Booleans:**
