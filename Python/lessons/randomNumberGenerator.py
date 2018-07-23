@@ -5,7 +5,7 @@ import os.path
 import pickle
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
-SAVEFILEPATH = os.getcwd() + "/High_Scores"
+SAVEFILEPATH = os.getcwd() + "/High_Scores.dat"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 
@@ -14,11 +14,37 @@ randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 # 2. Convert the file into a dictionary
 # 3. Search dictionary for username defined by user and return null if nothing found or userID if it is found\
 def get_user_details(userID):
-    pass
+    with open(SAVEFILEPATH, 'rb') as file_pointer:
+        # In this block, file is opene and file_pointer exists
+        user_dict = pickle.load(file_pointer)
 
+    user_details = user_dict[userID]
+    return user_details
 
+# 1. Get a filte pointer for reading
+# 2. Use pickel to read the file (gets the list of objects)
+# 3. Append the new user to the list
+# 4. Get a file pointer for writing
+# 5. Use pickle to write the updated list to the file
 def add_user_details(userID, userPass):
-    pass
+
+    new_user = {'userid': userID,
+                'password': userPass,
+                'highscore': 0
+                }
+
+    with open(SAVEFILEPATH,'rb') as file_pointer:
+        # In this block, file is opene and file_pointer exists
+        user_dict = pickle.load(file_pointer)
+
+
+    user_dict[userID] = new_user
+
+
+
+    with open(SAVEFILEPATH, 'wb') as file_pointer:
+        # In this block, file is opene and file_pointer exists
+        pickle.dump(user_dict, file_pointer)
 
 
 #
