@@ -9,6 +9,8 @@ totalGuessed = 0
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 print("Welcome to the guessing game!")
 
+# This should only be in beta.
+
 # Request user input and ensure that it is both a number within the range and a number that is an integer
 def get_clean_number(min, max):
     while True:
