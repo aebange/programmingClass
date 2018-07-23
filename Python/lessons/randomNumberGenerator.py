@@ -28,6 +28,9 @@ def add_user_details(userID, userPass):
 #
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
+# Convert the user's inputted guess to a clean number
+
+
 def get_clean_number(min, max):
     while True:
         print("Enter a number between %d and %d." % (min, max))
@@ -49,10 +52,13 @@ def get_clean_number(min, max):
             os.system("cls")
             print("Huh?")
 
+
+# Retrieve a username from the current user
 def prompt_user_for_username():
     pass
 
 
+# Initiate the game
 def play_the_game(userDetails):
     # Program start
     totalGuessed = 0
@@ -77,20 +83,25 @@ def play_the_game(userDetails):
     return totalGuessed
 
 
+# Create a break in operations to provide the user an opportunity to read the screen output
 def press_any_key():
     print("Press any key to continue...")
     # Use the input as a break point to prevent the program from closing before the user can read the results.
     i = input()
 
-# Create a loop to prompt a user for a 4 digit pin
+
+# Create a loop to prompt a user for their 4 digit pin
 def prompt_user_for_password():
     print("What is your 4-digit pin?")
-        user_Password =  input()
+    user_Password =  input()
 
-def save_score(userDetails):
+
+# Update the users details in the pickle file
+def update_user_to_system(userDetails):
     pass
 
 
+# Save the users details to the pickle file
 def add_user_to_system(userName, userPassword):
     pass
 
@@ -98,6 +109,7 @@ def add_user_to_system(userName, userPassword):
 # Program starts here
 userName = prompt_user_for_username()
 userDetails = get_user_details()
+
 
 if userDetails == None:
     # user not found im system
@@ -117,6 +129,6 @@ else:
 
     userScore = play_the_game(userDetails)
 
-    save_score(userDetails, userScore)
+    update_user_to_system(userDetails, userScore)
 
     press_any_key()
