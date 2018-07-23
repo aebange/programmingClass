@@ -5,7 +5,6 @@ import os.path
 import pickle
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
-totalGuessed = 0
 SAVEFILEPATH = os.getcwd() + "/High_Scores"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
@@ -15,15 +14,18 @@ randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 # 2. Convert the file into a dictionary
 # 3. Search dictionary for username defined by user and return null if nothing found or userID if it is found\
 def get_user_details(userID):
+    pass
 
 
-def add user_details(userID, userPass)
+def add_user_details(userID, userPass):
+    pass
 
 
-# Save username to file, assumes file and subdirectory exist
-def save_data():
-    file_pointer = open(SAVEFILEPATH % saveFile, 'w')
-
+#
+# # Save username to file, assumes file and subdirectory exist
+# def save_data():
+#     file_pointer = open(SAVEFILEPATH % saveFile, 'w')
+#
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
 def get_clean_number(min, max):
@@ -47,43 +49,74 @@ def get_clean_number(min, max):
             os.system("cls")
             print("Huh?")
 
+def prompt_user_for_username():
+    pass
 
-# Program start
-print("Welcome to the guessing game!")
-print("What is your username?")
+
+def play_the_game(userDetails):
+    # Program start
+    totalGuessed = 0
+    print("Welcome to the guessing game!")
+    while True:
+        # Passes the parameters for min and max into the function get_clean_number()
+        cleanGuess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
+        # Adds to the number of total times the user guessed by 1
+        totalGuessed += 1
+        os.system('cls')
+
+        # Checks to see if the guess is too low or too high
+        if cleanGuess > randomNumber:
+            print("Your guess of %d was too high, this attempt number %d." % (cleanGuess, totalGuessed))
+        elif cleanGuess < randomNumber:
+            print("Your guess of %d was too low, this attempt number %d." % (cleanGuess, totalGuessed))
+        else:
+            print("Congratulations, you successfully guessed the number!")
+            print("Took you %d guesses.  The random number was %d." % (totalGuessed, randomNumber))
+            break
+
+    return totalGuessed
+
+
+def press_any_key():
+    print("Press any key to continue...")
+    # Use the input as a break point to prevent the program from closing before the user can read the results.
+    i = input()
+
+# Create a loop to prompt a user for a 4 digit pin
+def prompt_user_for_password():
+    print("What is your 4-digit pin?")
+        user_Password =  input()
+
+def save_score(userDetails):
+    pass
+
+
+def add_user_to_system(userName, userPassword):
+    pass
+
+
+# Program starts here
 userName = prompt_user_for_username()
-
 userDetails = get_user_details()
 
 if userDetails == None:
     # user not found im system
-else
-
+    print("You're new to the system, please enter a password")
+    userPassword = prompt_user_for_password()
+    add_user_to_system(userName, userPassword)
+else:
+    print("User found, please enter your password")
     while True:
-        userPassword = prompt_user_for_Password()
-        if userPassword != userDetails:
+        userPassword = prompt_user_for_password()
+        actualPasswordFromFile = userDetails.get("password")
+        if userPassword != actualPasswordFromFile:
             print("Wrong password, try again")
+        else:
+            # User entered correct password, break out of the loop
+            break
 
-    runProgram()
+    userScore = play_the_game(userDetails)
 
-while True:
-    # Passes the parameters for min and max into the function get_clean_number()
-    cleanGuess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
-    # Adds to the number of total times the user guessed by 1
-    totalGuessed += 1
+    save_score(userDetails, userScore)
 
-    # Checks to see if the guess is too low or too high
-    if cleanGuess > randomNumber:
-        os.system('cls')
-        print("Your guess of %d was too high, this attempt number %d." % (cleanGuess, totalGuessed))
-    elif cleanGuess < randomNumber:
-        os.system('cls')
-        print("Your guess of %d was too low, this attempt number %d." % (cleanGuess, totalGuessed))
-    else:
-        os.system('cls')
-        print("Congratulations, you successfully guessed the number!")
-        print("Took you %d guesses.  The random number was %d." % (totalGuessed, randomNumber))
-        print("Press any key to continue...")
-        # Use the input as a break point to prevent the program from closing before the user can read the results.
-        i = input()
-        sys.exit(0)
+    press_any_key()

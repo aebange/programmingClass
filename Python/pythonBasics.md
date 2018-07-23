@@ -102,6 +102,7 @@
     - Using the .os methods
         - `x = os.path.join('path', 'filename')`
         - `os.makedirs('filepath')`
+-  **Pickle Files:** 
 -  **Sets:**
     - set('abc'),{'a', 'b', 'c'}
 -  **Booleans:**
