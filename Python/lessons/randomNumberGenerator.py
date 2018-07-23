@@ -5,11 +5,17 @@ import os.path
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
 totalGuessed = 0
+saveFile = "High_Scores" + '.jpg'
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
-print("Welcome to the guessing game!")
 
-# This should only be in beta.
+
+# Save username to file, assumes file and subdirectory exist
+def save_username():
+    local_file = open('programFiles:\\%s' % saveFile, 'w')
+    local_file.write(userName)
+    local_file.close()
+
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
 def get_clean_number(min, max):
@@ -33,6 +39,12 @@ def get_clean_number(min, max):
             os.system("cls")
             print("Huh?")
 
+
+# Program start
+print("Welcome to the guessing game!")
+print("What is your username?")
+userName = input()
+save_username()
 
 while True:
     # Passes the parameters for min and max into the function get_clean_number()
