@@ -2,19 +2,27 @@ import random
 import sys
 import os
 import os.path
+import pickle
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
 totalGuessed = 0
-saveFile = "High_Scores" + '.jpg'
+SAVEFILEPATH = os.getcwd() + "/High_Scores"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 
 
+# 1. Open pickle file
+# 2. Convert the file into a dictionary
+# 3. Search dictionary for username defined by user and return null if nothing found or userID if it is found\
+def get_user_details(userID):
+
+
+def add user_details(userID, userPass)
+
+
 # Save username to file, assumes file and subdirectory exist
-def save_username():
-    local_file = open('programFiles:\\%s' % saveFile, 'w')
-    local_file.write(userName)
-    local_file.close()
+def save_data():
+    file_pointer = open(SAVEFILEPATH % saveFile, 'w')
 
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
@@ -43,8 +51,20 @@ def get_clean_number(min, max):
 # Program start
 print("Welcome to the guessing game!")
 print("What is your username?")
-userName = input()
-save_username()
+userName = prompt_user_for_username()
+
+userDetails = get_user_details()
+
+if userDetails == None:
+    # user not found im system
+else
+
+    while True:
+        userPassword = prompt_user_for_Password()
+        if userPassword != userDetails:
+            print("Wrong password, try again")
+
+    runProgram()
 
 while True:
     # Passes the parameters for min and max into the function get_clean_number()
