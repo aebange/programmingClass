@@ -149,7 +149,7 @@ def prompt_user_for_password():
 
 # Update the users details in the pickle file
 def update_user_to_system(userDetails, UserScore):
-    pass
+
 
 
 # Program starts here
