@@ -10,40 +10,38 @@ SAVEFILEPATH = os.getcwd() + "/High_Scores.dat"
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 
 
-# 1. Open pickle file
-# 2. Convert the file into a dictionary
-# 3. Search dictionary for username defined by user and return null if nothing found or userID if it is found\
-def get_user_details(userID):
+# Search dictionary for username defined by user. If already exists, outputs the user's details. Else outputs null
+def get_user_details(userDetails):
+    # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
     with open(SAVEFILEPATH, 'rb') as file_pointer:
-        # In this block, file is opene and file_pointer exists
+        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
         user_dict = pickle.load(file_pointer)
+        # Check for user's username in pickle file contents
+        if userName in user_dict:
+            # Username has been found and already exists
+            # Assign the user details of username to user_details
+            userDetails = user_dict[userName]
+            return userDetails
+        else:
+            # Username has not been found and still needs to be created
+            return None
 
-    user_details = user_dict[userID]
-    return user_details
 
-# 1. Get a filte pointer for reading
-# 2. Use pickel to read the file (gets the list of objects)
-# 3. Append the new user to the list
-# 4. Get a file pointer for writing
-# 5. Use pickle to write the updated list to the file
+# Takes the new user's desired password and username and installs them into the system. Assigns new default high score
 def add_user_details(userID, userPass):
-
+    # Create user details for the new user to be installed into the pickle file
     new_user = {'userid': userID,
                 'password': userPass,
-                'highscore': 0
-                }
-
+                'highscore': 0}
+    # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
     with open(SAVEFILEPATH,'rb') as file_pointer:
-        # In this block, file is opene and file_pointer exists
+        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
         user_dict = pickle.load(file_pointer)
-
-
+        # Adds the new user to the pickle file's contents
     user_dict[userID] = new_user
-
-
-
+# Assigned file pointer to file_pointer using "wb" (write binary)
     with open(SAVEFILEPATH, 'wb') as file_pointer:
-        # In this block, file is opene and file_pointer exists
+        # Use pickle.dump() to write the new contents of user_dict back to the pickle file
         pickle.dump(user_dict, file_pointer)
 
 
@@ -81,7 +79,9 @@ def get_clean_number(min, max):
 
 # Retrieve a username from the current user
 def prompt_user_for_username():
-    pass
+    print("Please enter your username. If you don't have one, enter whatever user you'd like.")
+    user_name = input()
+    return user_name
 
 
 # Initiate the game
@@ -120,6 +120,7 @@ def press_any_key():
 def prompt_user_for_password():
     print("What is your 4-digit pin?")
     user_Password =  input()
+
 
 
 # Update the users details in the pickle file
