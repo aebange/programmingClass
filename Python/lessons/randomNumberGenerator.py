@@ -5,44 +5,58 @@ import os.path
 import pickle
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
-SAVEFILEPATH = os.getcwd() + "/High_Scores.dat"
+SAVEFILEPATH = os.getcwd() + "\\High_Scores.dat"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 
 
 # Search dictionary for username defined by user. If already exists, outputs the user's details. Else outputs null
-def get_user_details(userDetails):
+def get_user_details(userName):
     # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
-    with open(SAVEFILEPATH, 'rb') as file_pointer:
-        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-        user_dict = pickle.load(file_pointer)
-        # Check for user's username in pickle file contents
-        if userName in user_dict:
-            # Username has been found and already exists
-            # Assign the user details of username to user_details
-            userDetails = user_dict[userName]
-            return userDetails
-        else:
-            # Username has not been found and still needs to be created
-            return None
+    if os.stat(SAVEFILEPATH).st_size == 0:
+        # File is empty and therefore it is impossible for a user to exist
+        return None
+    else:
+        with open(SAVEFILEPATH, 'rb') as file_pointer:
+            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+            user_dict = pickle.load(file_pointer)
+            # Check for user's username in pickle file contents
+            if userName in user_dict:
+                # Username has been found and already exists
+                # Assign the user details of username to user_details
+                userDetails = user_dict[userName]
+                return userDetails
+            else:
+                # Username has not been found and still needs to be created
+                return None
 
 
 # Takes the new user's desired password and username and installs them into the system. Assigns new default high score
+# Case #1:  Adding the first user ever     to a  *empty* file
+# Case #2:  Adding 2nd, 3rd, 4th, ... user to an *existing* file
 def add_user_details(userID, userPass):
     # Create user details for the new user to be installed into the pickle file
     new_user = {'userid': userID,
                 'password': userPass,
                 'highscore': 0}
-    # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
-    with open(SAVEFILEPATH,'rb') as file_pointer:
-        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-        user_dict = pickle.load(file_pointer)
-        # Adds the new user to the pickle file's contents
-    user_dict[userID] = new_user
-# Assigned file pointer to file_pointer using "wb" (write binary)
-    with open(SAVEFILEPATH, 'wb') as file_pointer:
-        # Use pickle.dump() to write the new contents of user_dict back to the pickle file
-        pickle.dump(user_dict, file_pointer)
+    if os.stat(SAVEFILEPATH).st_size == 0:
+        user_dict = {}
+        user_dict[userID] = new_user
+        with open(SAVEFILEPATH, 'wb') as file_pointer:
+            # Use pickle.dump() to write the new contents of user_dict back to the pickle file
+            pickle.dump(user_dict, file_pointer)
+
+    else:
+        # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
+        with open(SAVEFILEPATH,'rb') as file_pointer:
+            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+            user_dict = pickle.load(file_pointer)
+            # Adds the new user to the pickle file's contents
+        user_dict[userID] = new_user
+    # Assigned file pointer to file_pointer using "wb" (write binary)
+        with open(SAVEFILEPATH, 'wb') as file_pointer:
+            # Use pickle.dump() to write the new contents of user_dict back to the pickle file
+            pickle.dump(user_dict, file_pointer)
 
 
 #
@@ -69,7 +83,7 @@ def get_clean_number(min, max):
             elif local_clean_guess > max:
                 print("Your number is too high.")
             else:
-                # Passes the value of localCleanGuess to whatever variable the function is assigned to
+                # Passes the value of localclean_guess to whatever variable the function is assigned to
                 return local_clean_guess
         else:
             # User entered a string or something strange - clearing screen
@@ -91,16 +105,16 @@ def play_the_game(userDetails):
     print("Welcome to the guessing game!")
     while True:
         # Passes the parameters for min and max into the function get_clean_number()
-        cleanGuess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
+        clean_guess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
         # Adds to the number of total times the user guessed by 1
         totalGuessed += 1
-        os.system('cls')
+        os.system("cls")
 
         # Checks to see if the guess is too low or too high
-        if cleanGuess > randomNumber:
-            print("Your guess of %d was too high, this attempt number %d." % (cleanGuess, totalGuessed))
-        elif cleanGuess < randomNumber:
-            print("Your guess of %d was too low, this attempt number %d." % (cleanGuess, totalGuessed))
+        if clean_guess > randomNumber:
+            print("Your guess of %d was too high, this attempt number %d." % (clean_guess, totalGuessed))
+        elif clean_guess < randomNumber:
+            print("Your guess of %d was too low, this attempt number %d." % (clean_guess, totalGuessed))
         else:
             print("Congratulations, you successfully guessed the number!")
             print("Took you %d guesses.  The random number was %d." % (totalGuessed, randomNumber))
@@ -116,33 +130,38 @@ def press_any_key():
     i = input()
 
 
-# Create a loop to prompt a user for their 4 digit pin
+# Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
 def prompt_user_for_password():
-    print("What is your 4-digit pin?")
-    user_Password =  input()
+    while True:
+        os.system('cls')
+        print("What is your 4-digit pin?")
+        user_password = input()
+        if len(user_password) == 4:
+            if user_password.isnumeric():
+                return user_password
+                break
+            else:
+                print("The 4-digit pin must be composed of numbers 0-9. Please try again.")
+        else:
+            print("The 4-digit pin must only have 4 charecters.")
 
 
 
 # Update the users details in the pickle file
-def update_user_to_system(userDetails):
-    pass
-
-
-# Save the users details to the pickle file
-def add_user_to_system(userName, userPassword):
+def update_user_to_system(userDetails, UserScore):
     pass
 
 
 # Program starts here
 userName = prompt_user_for_username()
-userDetails = get_user_details()
+userDetails = get_user_details(userName)
 
 
 if userDetails == None:
     # user not found im system
     print("You're new to the system, please enter a password")
     userPassword = prompt_user_for_password()
-    add_user_to_system(userName, userPassword)
+    add_user_details(userName, userPassword)
 else:
     print("User found, please enter your password")
     while True:
@@ -154,8 +173,8 @@ else:
             # User entered correct password, break out of the loop
             break
 
-    userScore = play_the_game(userDetails)
+userScore = play_the_game(userDetails)
 
-    update_user_to_system(userDetails, userScore)
+update_user_to_system(userDetails, userScore)
 
-    press_any_key()
+press_any_key()
