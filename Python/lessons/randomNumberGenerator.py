@@ -45,7 +45,6 @@ def add_user_details(userID, userPass):
         with open(SAVEFILEPATH, 'wb') as file_pointer:
             # Use pickle.dump() to write the new contents of user_dict back to the pickle file
             pickle.dump(user_dict, file_pointer)
-
     else:
         # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
         with open(SAVEFILEPATH,'rb') as file_pointer:
@@ -59,16 +58,8 @@ def add_user_details(userID, userPass):
             pickle.dump(user_dict, file_pointer)
 
 
-#
-# # Save username to file, assumes file and subdirectory exist
-# def save_data():
-#     file_pointer = open(SAVEFILEPATH % saveFile, 'w')
-#
-
 # Request user input and ensure that it is both a number within the range and a number that is an integer
 # Convert the user's inputted guess to a clean number
-
-
 def get_clean_number(min, max):
     while True:
         print("Enter a number between %d and %d." % (min, max))
@@ -102,7 +93,8 @@ def prompt_user_for_username():
 def play_the_game(userDetails):
     # Program start
     totalGuessed = 0
-    print("Welcome to the guessing game!")
+    print("Welcome back to the guessing game %s!" % userName)
+    print("Your previous highscore was %d." % userDetails['highscore'])
     while True:
         # Passes the parameters for min and max into the function get_clean_number()
         clean_guess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
@@ -119,7 +111,6 @@ def play_the_game(userDetails):
             print("Congratulations, you successfully guessed the number!")
             print("Took you %d guesses.  The random number was %d." % (totalGuessed, randomNumber))
             break
-
     return totalGuessed
 
 
@@ -146,24 +137,61 @@ def prompt_user_for_password():
             print("The 4-digit pin must only have 4 charecters.")
 
 
-
 # Update the users details in the pickle file
-def update_user_to_system(userDetails, UserScore):
+def update_user_to_system(userName, userDetails):
+    # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
+    if os.stat(SAVEFILEPATH).st_size == 0:
+        # File is empty and therefore it is impossible for a user to exist
+        print("User save file has been corrupted and score cannot be saved to it.")
+        return None
+    else:
+        with open(SAVEFILEPATH, 'rb') as file_pointer:
+            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+            updated_user_dict = pickle.load(file_pointer)
+            # Check for user's username in pickle file contents
+            if userName in updated_user_dict:
+                # Username has been found and already exists
+                # Assign the pregenerated userDetails of username to updated_user_details
+                updated_user_dict[userName] = userDetails
+                with open(SAVEFILEPATH, 'wb') as file_pointer:
+                    # Use pickle.dump() to update the new contents of updated_user_dict back to the pickle file
+                    pickle.dump(updated_user_dict, file_pointer)
+            else:
+                # Username has not been found and still needs to be created
+                return None
 
+
+# Compares the user's new score with their old best scores to see if the score should be updated
+def update_user_score(userDetails, userScore):
+    if userDetails['highscore'] == 0:
+        # User score has never been recorded before, setting first score as new highscore
+        print("This was your first time playing, so your new highscore is %d." % userScore)
+        userDetails['highscore'] = userScore
+        return userDetails
+    elif userDetails['highscore'] > userScore:
+        # User score has been improved (less is better) and will be updated
+        print("You beat your previous high score of %d." % userDetails['highscore'])
+        userDetails['highscore'] = userScore
+        return userDetails
+    else:
+        # User score is worse than it previously was and will be discarded
+        print("You did not beat your high score of %d." % userDetails['highscore'])
+        return userDetails
 
 
 # Program starts here
+# Prompt the user for their username
 userName = prompt_user_for_username()
+# Retrieve the userdetails for that username from the file
 userDetails = get_user_details(userName)
-
-
+# Check to see if the user exists, if not prompt them to enter a new password
+# If the user exists, ask them for their password until they get it correct
 if userDetails == None:
     # user not found im system
     print("You're new to the system, please enter a password")
     userPassword = prompt_user_for_password()
     add_user_details(userName, userPassword)
 else:
-    print("User found, please enter your password")
     while True:
         userPassword = prompt_user_for_password()
         actualPasswordFromFile = userDetails.get("password")
@@ -171,10 +199,13 @@ else:
             print("Wrong password, try again")
         else:
             # User entered correct password, break out of the loop
+            print("Welcome back %s" % userName)
             break
-
+# Begin the game, record the user's score to userScore
 userScore = play_the_game(userDetails)
-
-update_user_to_system(userDetails, userScore)
-
+# Check the user's score to see if it has improved. If it has, send the new value to our local copy of the pickle dict
+update_user_score(userDetails, userScore)
+# Overwrite the pickle file's version of the current users data with the new local version
+update_user_to_system(userName, userDetails)
+# Prompt the user to make sure that they get a chance to read what is on the screen
 press_any_key()
