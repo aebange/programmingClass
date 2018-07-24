@@ -200,7 +200,6 @@ else:
         else:
             # User entered correct password, break out of the loop
             os.system('cls')
-            print("Welcome back %s" % userName)
             break
 # Begin the game, record the user's score to userScore
 userScore = play_the_game(userDetails)
