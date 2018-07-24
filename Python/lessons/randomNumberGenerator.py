@@ -86,7 +86,33 @@ def get_clean_number(min, max):
 def prompt_user_for_username():
     print("Please enter your username. If you don't have one, enter whatever user you'd like.")
     user_name = input()
-    return user_name
+    if user_name == "list_users":
+        with open(SAVEFILEPATH, 'rb') as file_pointer:
+            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+            complete_dict = pickle.load(file_pointer)
+            complete_dict_list = list(complete_dict)
+            #while True:
+                # item_number = 0
+            print(complete_dict_list)
+            input()
+        sys.exit()
+    elif user_name == "delete_users":
+        removing = True
+        print("Who would you like to remove?")
+        user_target = input()
+        with open(SAVEFILEPATH, 'rb') as file_pointer:
+            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+            complete_dict = pickle.load(file_pointer)
+            del complete_dict[user_target]
+            with open(SAVEFILEPATH, 'wb') as file_pointer:
+                # Use pickle.dump() to write the new contents of user_dict back to the pickle file
+                pickle.dump(complete_dict, file_pointer)
+            print("User %s has been brutally murdered.")
+            print("Press any key to continue...")
+            input()
+        sys.exit()
+    else:
+        return user_name
 
 
 # Initiate the game
@@ -94,7 +120,7 @@ def play_the_game(userDetails):
     # Program start
     totalGuessed = 0
     print("Welcome back to the guessing game %s!" % userName)
-    print("Your previous highscore was %d." % userDetails['highscore'])
+    # print("Your previous highscore was %d." % userDetails['highscore'])
     while True:
         # Passes the parameters for min and max into the function get_clean_number()
         clean_guess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
