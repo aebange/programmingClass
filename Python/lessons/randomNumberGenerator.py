@@ -107,7 +107,7 @@ def prompt_user_for_username():
             with open(SAVEFILEPATH, 'wb') as file_pointer:
                 # Use pickle.dump() to write the new contents of user_dict back to the pickle file
                 pickle.dump(complete_dict, file_pointer)
-            print("User %s has been brutally murdered.")
+            print("User %s has been brutally murdered." % user_target)
             print("Press any key to continue...")
             input()
         sys.exit()
@@ -150,7 +150,6 @@ def press_any_key():
 # Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
 def prompt_user_for_password():
     while True:
-        os.system('cls')
         print("What is your 4-digit pin?")
         user_password = input()
         if len(user_password) == 4:
@@ -158,8 +157,10 @@ def prompt_user_for_password():
                 return user_password
                 break
             else:
+                os.system('cls')
                 print("The 4-digit pin must be composed of numbers 0-9. Please try again.")
         else:
+            os.system('cls')
             print("The 4-digit pin must only have 4 charecters.")
 
 
