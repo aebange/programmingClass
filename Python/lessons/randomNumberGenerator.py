@@ -199,6 +199,7 @@ else:
             print("Wrong password, try again")
         else:
             # User entered correct password, break out of the loop
+            os.system('cls')
             print("Welcome back %s" % userName)
             break
 # Begin the game, record the user's score to userScore
