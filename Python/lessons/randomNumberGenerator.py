@@ -119,7 +119,7 @@ def prompt_user_for_username():
                 # Use pickle.dump() to write the new contents of user_dict back to the pickle file
                 pickle.dump(complete_dict, file_pointer)
             print("User %s has been brutally murdered." % user_target)
-            print("Press any key to continue...")
+            print("Press enter to continue...")
             input()
         sys.exit()
     else:
