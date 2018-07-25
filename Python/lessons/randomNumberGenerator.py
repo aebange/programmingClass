@@ -13,10 +13,14 @@ randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 # Search dictionary for username defined by user. If already exists, outputs the user's details. Else outputs null
 def get_user_details(userName):
     # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
-    if os.stat(SAVEFILEPATH).st_size == 0:
-        # File is empty and therefore it is impossible for a user to exist
+    if not os.path.isfile(SAVEFILEPATH):
+        # File does not existr. So, return none as the user does not exist in the system
+        return None
+    elif os.stat(SAVEFILEPATH).st_size == 0:
+        # Data file exists but it's an empty file: therefore it is impossible for a user to exist
         return None
     else:
+        # Data file exists and is not empty
         with open(SAVEFILEPATH, 'rb') as file_pointer:
             # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
             user_dict = pickle.load(file_pointer)
@@ -39,10 +43,12 @@ def add_user_details(userID, userPass):
     new_user = {'userid': userID,
                 'password': userPass,
                 'highscore': 0}
-    if os.stat(SAVEFILEPATH).st_size == 0:
-        # Case #1:  The data file is empty
+    if  (os.path.isfile(SAVEFILEPATH) == False) or (os.stat(SAVEFILEPATH).st_size == 0):
+        # Case #1:  The data file is empty or data file does not exist
         user_dict = {}
         user_dict[userID] = new_user
+
+        # Create a new file or append to write to the empty file
         with open(SAVEFILEPATH, 'wb') as file_pointer:
             # Use pickle.dump() to write the new contents of user_dict back to the pickle file
             pickle.dump(user_dict, file_pointer)
