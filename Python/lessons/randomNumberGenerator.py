@@ -3,6 +3,7 @@ import sys
 import os
 import os.path
 import pickle
+
 MINIMUM_NUMBER = 1
 MAXIMUM_NUMBER = 100
 SAVEFILEPATH = os.getcwd() + "\\High_Scores.dat"
@@ -11,7 +12,7 @@ randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 
 
 # Search dictionary for username defined by user. If already exists, outputs the user's details. Else outputs null
-def get_user_details(userName):
+def get_user_details(user_name):
     # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
     if not os.path.isfile(SAVEFILEPATH):
         # File does not existr. So, return none as the user does not exist in the system
@@ -25,10 +26,10 @@ def get_user_details(userName):
             # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
             user_dict = pickle.load(file_pointer)
             # Check for user's username in pickle file contents
-            if userName in user_dict:
+            if user_name in user_dict:
                 # Username has been found and already exists
                 # Assign the user details of username to user_details
-                userDetails = user_dict[userName]
+                userDetails = user_dict[user_name]
                 return userDetails
             else:
                 # Username has not been found and still needs to be created
@@ -43,7 +44,7 @@ def add_user_details(userID, userPass):
     new_user = {'userid': userID,
                 'password': userPass,
                 'highscore': 0}
-    if  (os.path.isfile(SAVEFILEPATH) == False) or (os.stat(SAVEFILEPATH).st_size == 0):
+    if (os.path.isfile(SAVEFILEPATH) == False) or (os.stat(SAVEFILEPATH).st_size == 0):
         # Case #1:  The data file is empty or data file does not exist
         user_dict = {}
         user_dict[userID] = new_user
@@ -55,20 +56,18 @@ def add_user_details(userID, userPass):
     else:
         # Case #2:  The data file is not empty
         # -- Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
-        with open(SAVEFILEPATH,'rb') as file_pointer:
+        with open(SAVEFILEPATH, 'rb') as file_pointer:
             # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
             user_dict = pickle.load(file_pointer)
             # Adds the new user to the pickle file's contents
         user_dict[userID] = new_user
-         # Assigned file pointer to file_pointer using "wb" (write binary)
+        # Assigned file pointer to file_pointer using "wb" (write binary)
         with open(SAVEFILEPATH, 'wb') as file_pointer:
             # Use pickle.dump() to write the new contents of user_dict back to the pickle file
             pickle.dump(user_dict, file_pointer)
 
     # Always return the user details of the new user
     return new_user
-
-
 
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
@@ -104,13 +103,12 @@ def prompt_user_for_username():
             # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
             complete_dict = pickle.load(file_pointer)
             complete_dict_list = list(complete_dict)
-            #while True:
-                # item_number = 0
+            # while True:
+            # item_number = 0
             print(complete_dict_list)
             input()
         sys.exit()
     elif user_name == "delete_users":
-        removing = True
         print("Who would you like to remove?")
         user_target = input()
         with open(SAVEFILEPATH, 'rb') as file_pointer:
@@ -155,7 +153,7 @@ def play_the_game():
 def press_any_key():
     print("Press any key to continue...")
     # Use the input as a break point to prevent the program from closing before the user can read the results.
-    i = input()
+    input()
 
 
 # Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
@@ -166,7 +164,6 @@ def prompt_user_for_password():
         if len(user_password) == 4:
             if user_password.isnumeric():
                 return user_password
-                break
             else:
                 os.system('cls')
                 print("The 4-digit pin must be composed of numbers 0-9. Please try again.")
