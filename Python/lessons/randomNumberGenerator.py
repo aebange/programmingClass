@@ -40,22 +40,29 @@ def add_user_details(userID, userPass):
                 'password': userPass,
                 'highscore': 0}
     if os.stat(SAVEFILEPATH).st_size == 0:
+        # Case #1:  The data file is empty
         user_dict = {}
         user_dict[userID] = new_user
         with open(SAVEFILEPATH, 'wb') as file_pointer:
             # Use pickle.dump() to write the new contents of user_dict back to the pickle file
             pickle.dump(user_dict, file_pointer)
     else:
-        # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
+        # Case #2:  The data file is not empty
+        # -- Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
         with open(SAVEFILEPATH,'rb') as file_pointer:
             # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
             user_dict = pickle.load(file_pointer)
             # Adds the new user to the pickle file's contents
         user_dict[userID] = new_user
-    # Assigned file pointer to file_pointer using "wb" (write binary)
+         # Assigned file pointer to file_pointer using "wb" (write binary)
         with open(SAVEFILEPATH, 'wb') as file_pointer:
             # Use pickle.dump() to write the new contents of user_dict back to the pickle file
             pickle.dump(user_dict, file_pointer)
+
+    # Always return the user details of the new user
+    return new_user
+
+
 
 
 # Request user input and ensure that it is both a number within the range and a number that is an integer
@@ -116,18 +123,16 @@ def prompt_user_for_username():
 
 
 # Initiate the game
-def play_the_game(userDetails):
+def play_the_game():
     # Program start
     totalGuessed = 0
     print("Welcome back to the guessing game %s!" % userName)
-    # print("Your previous highscore was %d." % userDetails['highscore'])
     while True:
         # Passes the parameters for min and max into the function get_clean_number()
         clean_guess = get_clean_number(max=MAXIMUM_NUMBER, min=MINIMUM_NUMBER)
         # Adds to the number of total times the user guessed by 1
         totalGuessed += 1
         os.system("cls")
-
         # Checks to see if the guess is too low or too high
         if clean_guess > randomNumber:
             print("Your guess of %d was too high, this attempt number %d." % (clean_guess, totalGuessed))
@@ -217,7 +222,7 @@ if userDetails == None:
     # user not found im system
     print("You're new to the system, please enter a password")
     userPassword = prompt_user_for_password()
-    add_user_details(userName, userPassword)
+    userDetails = add_user_details(userName, userPassword)
 else:
     while True:
         userPassword = prompt_user_for_password()
@@ -229,7 +234,7 @@ else:
             os.system('cls')
             break
 # Begin the game, record the user's score to userScore
-userScore = play_the_game(userDetails)
+userScore = play_the_game()
 # Check the user's score to see if it has improved. If it has, send the new value to our local copy of the pickle dict
 update_user_score(userDetails, userScore)
 # Overwrite the pickle file's version of the current users data with the new local version
