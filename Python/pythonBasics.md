@@ -102,11 +102,13 @@
     - Using the .os methods
         - `x = os.path.join('path', 'filename')`
         - `os.makedirs('filepath')`
+-  **Pickle Files:** 
 -  **Sets:**
     - set('abc'),{'a', 'b', 'c'}
 -  **Booleans:**
     - True, False
 -  **Types:**
+-  **None:** A null object
 -  **Functions:** Not a core data type, contains a set of commands that can be called for repeated use.
 
 ### Loops
