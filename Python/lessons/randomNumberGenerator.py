@@ -96,34 +96,39 @@ def get_clean_number(min, max):
 
 # Retrieve a username from the current user
 def prompt_user_for_username():
-    print("Please enter your username. If you don't have one, enter whatever user you'd like.")
-    user_name = input()
-    if user_name == "list_users":
-        with open(SAVEFILEPATH, 'rb') as file_pointer:
-            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-            complete_dict = pickle.load(file_pointer)
-            complete_dict_list = list(complete_dict)
-            # while True:
-            # item_number = 0
-            print(complete_dict_list)
-            input()
-        sys.exit()
-    elif user_name == "delete_users":
-        print("Who would you like to remove?")
-        user_target = input()
-        with open(SAVEFILEPATH, 'rb') as file_pointer:
-            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-            complete_dict = pickle.load(file_pointer)
-            del complete_dict[user_target]
-            with open(SAVEFILEPATH, 'wb') as file_pointer:
-                # Use pickle.dump() to write the new contents of user_dict back to the pickle file
-                pickle.dump(complete_dict, file_pointer)
-            print("User %s has been brutally murdered." % user_target)
-            print("Press enter to continue...")
-            input()
-        sys.exit()
-    else:
-        return user_name
+    while True:
+        print("Please enter your username. If you don't have one, enter whatever user you'd like.")
+        user_name = input()
+        if user_name == "list_users":
+            with open(SAVEFILEPATH, 'rb') as file_pointer:
+                # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+                complete_dict = pickle.load(file_pointer)
+                complete_dict_list = list(complete_dict)
+                # while True:
+                # item_number = 0
+                print(complete_dict_list)
+                print("Press enter to continue...")
+                input()
+        elif user_name == "delete_users":
+            while True:
+                print('Who would you like to remove? Type "exit" to exit.')
+                user_target = input()
+                if user_target == "exit":
+                    break
+                else:
+                    with open(SAVEFILEPATH, 'rb') as file_pointer:
+                        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+                        complete_dict = pickle.load(file_pointer)
+                        if user_target in complete_dict:
+                            del complete_dict[user_target]
+                            with open(SAVEFILEPATH, 'wb') as file_pointer:
+                                # Use pickle.dump() to write the new contents of user_dict back to the pickle file
+                                pickle.dump(complete_dict, file_pointer)
+                            print("User %s has been brutally murdered." % user_target)
+                        else:
+                            print("Could not identify user %s..." % user_target)
+        else:
+            return user_name
 
 
 # Initiate the game
