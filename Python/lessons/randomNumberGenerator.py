@@ -176,6 +176,7 @@ def prompt_user_for_password():
         print("What is your 4-digit pin?")
         user_password = input()
         if len(user_password) is 4:
+            # Check to make sure the submitted password is actually a number
             if user_password.isnumeric():
                 return user_password
             else:
@@ -244,9 +245,12 @@ while True:
         userDetails = add_user_details(userName, userPassword)
     else:
         while True:
+            # Prompt the user for their password
             userPassword = prompt_user_for_password()
+            # Check to see if the submitted password is equal to the saved password on file
             actualPasswordFromFile = userDetails.get("password")
             if userPassword != actualPasswordFromFile:
+                # Password is not equal to the password saved to the users key in the pickle dictionary file
                 print("Wrong password, try again")
             else:
                 # User entered correct password, break out of the loop
