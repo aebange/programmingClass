@@ -97,6 +97,7 @@ def get_clean_number(min, max):
 # Retrieve a username from the current user
 def prompt_user_for_username():
     while True:
+        os.system("cls")
         print("Please enter your username. If you don't have one, enter whatever user you'd like.")
         user_name = input()
         if user_name == "list_users":
@@ -156,10 +157,13 @@ def play_the_game():
 
 # Create a break in operations to provide the user an opportunity to read the screen output
 def press_any_key():
-    print("Press any key to continue...")
-    # Use the input as a break point to prevent the program from closing before the user can read the results.
-    input()
-
+    print('Press enter to play again. If you would like to stop, type "exit"')
+    user_choice = input()
+    if user_choice is "exit" or user_choice is "Exit":
+        sys.exit()
+        sys.exit()
+    else:
+        print("Restarting game!")
 
 # Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
 def prompt_user_for_password():
@@ -220,32 +224,34 @@ def update_user_score(userDetails, userScore):
 
 
 # Program starts here
-# Prompt the user for their username
-userName = prompt_user_for_username()
-# Retrieve the userdetails for that username from the file
-userDetails = get_user_details(userName)
-# Check to see if the user exists, if not prompt them to enter a new password
-# If the user exists, ask them for their password until they get it correct
-if userDetails == None:
-    # user not found im system
-    print("You're new to the system, please enter a password")
-    userPassword = prompt_user_for_password()
-    userDetails = add_user_details(userName, userPassword)
-else:
-    while True:
+while True:
+    os.system('cls')
+    # Prompt the user for their username
+    userName = prompt_user_for_username()
+    # Retrieve the userdetails for that username from the file
+    userDetails = get_user_details(userName)
+    # Check to see if the user exists, if not prompt them to enter a new password
+    # If the user exists, ask them for their password until they get it correct
+    if userDetails == None:
+        # user not found im system
+        print("You're new to the system, please enter a password")
         userPassword = prompt_user_for_password()
-        actualPasswordFromFile = userDetails.get("password")
-        if userPassword != actualPasswordFromFile:
-            print("Wrong password, try again")
-        else:
-            # User entered correct password, break out of the loop
-            os.system('cls')
-            break
-# Begin the game, record the user's score to userScore
-userScore = play_the_game()
-# Check the user's score to see if it has improved. If it has, send the new value to our local copy of the pickle dict
-update_user_score(userDetails, userScore)
-# Overwrite the pickle file's version of the current users data with the new local version
-update_user_to_system(userName, userDetails)
-# Prompt the user to make sure that they get a chance to read what is on the screen
-press_any_key()
+        userDetails = add_user_details(userName, userPassword)
+    else:
+        while True:
+            userPassword = prompt_user_for_password()
+            actualPasswordFromFile = userDetails.get("password")
+            if userPassword != actualPasswordFromFile:
+                print("Wrong password, try again")
+            else:
+                # User entered correct password, break out of the loop
+                os.system('cls')
+                break
+    # Begin the game, record the user's score to userScore
+    userScore = play_the_game()
+    # Check the user's score to see if it has improved. If it has, send the new value to our local copy of the pickle dict
+    update_user_score(userDetails, userScore)
+    # Overwrite the pickle file's version of the current users data with the new local version
+    update_user_to_system(userName, userDetails)
+    # Prompt the user to make sure that they get a chance to read what is on the screen
+    press_any_key()
