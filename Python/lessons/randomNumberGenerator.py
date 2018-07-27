@@ -5,7 +5,7 @@ import os.path
 import pickle
 
 MINIMUM_NUMBER = 1
-MAXIMUM_NUMBER = 100
+MAXIMUM_NUMBER = 500
 SAVEFILEPATH = os.getcwd() + "\\High_Scores.dat"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
