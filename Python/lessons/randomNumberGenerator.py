@@ -171,6 +171,7 @@ def press_any_key():
     else:
         print("Restarting game!")
 
+
 # Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
 def prompt_user_for_password():
     while True:
