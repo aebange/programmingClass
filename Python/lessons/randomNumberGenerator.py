@@ -5,7 +5,7 @@ import os.path
 import pickle
 
 MINIMUM_NUMBER = 1
-MAXIMUM_NUMBER = 100
+MAXIMUM_NUMBER = 500
 SAVEFILEPATH = os.getcwd() + "\\High_Scores.dat"
 # Create the random number
 randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
@@ -15,9 +15,9 @@ randomNumber = random.randint(MINIMUM_NUMBER, MAXIMUM_NUMBER)
 def get_user_details(user_name):
     # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
     if not os.path.isfile(SAVEFILEPATH):
-        # File does not existr. So, return none as the user does not exist in the system
+        # File does not exist. So, return none as the user does not exist in the system
         return None
-    elif os.stat(SAVEFILEPATH).st_size == 0:
+    elif os.stat(SAVEFILEPATH).st_size is 0:
         # Data file exists but it's an empty file: therefore it is impossible for a user to exist
         return None
     else:
@@ -44,7 +44,7 @@ def add_user_details(userID, userPass):
     new_user = {'userid': userID,
                 'password': userPass,
                 'highscore': 0}
-    if (os.path.isfile(SAVEFILEPATH) == False) or (os.stat(SAVEFILEPATH).st_size == 0):
+    if (os.path.isfile(SAVEFILEPATH) is False) or (os.stat(SAVEFILEPATH).st_size is 0):
         # Case #1:  The data file is empty or data file does not exist
         user_dict = {}
         user_dict[userID] = new_user
@@ -88,6 +88,11 @@ def get_clean_number(min, max):
             else:
                 # Passes the value of localclean_guess to whatever variable the function is assigned to
                 return local_clean_guess
+        elif raw_guess is 'AC':
+            print("Invoked autocomplete")
+            raw_guess = randomNumber
+            local_clean_guess = int(raw_guess)
+            return local_clean_guess
         else:
             # User entered a string or something strange - clearing screen
             os.system("cls")
@@ -96,34 +101,40 @@ def get_clean_number(min, max):
 
 # Retrieve a username from the current user
 def prompt_user_for_username():
-    print("Please enter your username. If you don't have one, enter whatever user you'd like.")
-    user_name = input()
-    if user_name == "list_users":
-        with open(SAVEFILEPATH, 'rb') as file_pointer:
-            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-            complete_dict = pickle.load(file_pointer)
-            complete_dict_list = list(complete_dict)
-            # while True:
-            # item_number = 0
-            print(complete_dict_list)
-            input()
-        sys.exit()
-    elif user_name == "delete_users":
-        print("Who would you like to remove?")
-        user_target = input()
-        with open(SAVEFILEPATH, 'rb') as file_pointer:
-            # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
-            complete_dict = pickle.load(file_pointer)
-            del complete_dict[user_target]
-            with open(SAVEFILEPATH, 'wb') as file_pointer:
-                # Use pickle.dump() to write the new contents of user_dict back to the pickle file
-                pickle.dump(complete_dict, file_pointer)
-            print("User %s has been brutally murdered." % user_target)
-            print("Press any key to continue...")
-            input()
-        sys.exit()
-    else:
-        return user_name
+    while True:
+        os.system("cls")
+        print("Please enter your username. If you don't have one, enter whatever user you'd like.")
+        user_name = input()
+        if user_name is "list_users":
+            with open(SAVEFILEPATH, 'rb') as file_pointer:
+                # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+                complete_dict = pickle.load(file_pointer)
+                complete_dict_list = list(complete_dict)
+                # while True:
+                # item_number = 0
+                print(complete_dict_list)
+                print("Press enter to continue...")
+                input()
+        elif user_name is "delete_users":
+            while True:
+                print('Who would you like to remove? Type "exit" to exit.')
+                user_target = input()
+                if user_target is "exit":
+                    break
+                else:
+                    with open(SAVEFILEPATH, 'rb') as file_pointer:
+                        # Use pickle.load() to assign the contents of the file designated in file_pointer to user_dict
+                        complete_dict = pickle.load(file_pointer)
+                        if user_target in complete_dict:
+                            del complete_dict[user_target]
+                            with open(SAVEFILEPATH, 'wb') as file_pointer:
+                                # Use pickle.dump() to write the new contents of user_dict back to the pickle file
+                                pickle.dump(complete_dict, file_pointer)
+                            print("User %s has been brutally murdered." % user_target)
+                        else:
+                            print("Could not identify user %s..." % user_target)
+        else:
+            return user_name
 
 
 # Initiate the game
@@ -151,9 +162,12 @@ def play_the_game():
 
 # Create a break in operations to provide the user an opportunity to read the screen output
 def press_any_key():
-    print("Press any key to continue...")
-    # Use the input as a break point to prevent the program from closing before the user can read the results.
-    input()
+    print('Press enter to play again. If you would like to stop, type "exit"')
+    user_choice = input()
+    if user_choice is 'exit' or user_choice is "Exit":
+        sys.exit()
+    else:
+        print("Restarting game!")
 
 
 # Create a loop to prompt a user for their 4 digit pin. Ensures pin is 4 digits and numeric
@@ -161,7 +175,7 @@ def prompt_user_for_password():
     while True:
         print("What is your 4-digit pin?")
         user_password = input()
-        if len(user_password) == 4:
+        if len(user_password) is 4:
             if user_password.isnumeric():
                 return user_password
             else:
@@ -175,7 +189,7 @@ def prompt_user_for_password():
 # Update the users details in the pickle file
 def update_user_to_system(userName, userDetails):
     # Open the file using read binary and assign the SAVEFILEPATH to the file_pointer
-    if os.stat(SAVEFILEPATH).st_size == 0:
+    if os.stat(SAVEFILEPATH).st_size is 0:
         # File is empty and therefore it is impossible for a user to exist
         print("User save file has been corrupted and score cannot be saved to it.")
         return None
@@ -198,9 +212,9 @@ def update_user_to_system(userName, userDetails):
 
 # Compares the user's new score with their old best scores to see if the score should be updated
 def update_user_score(userDetails, userScore):
-    if userDetails['highscore'] == 0:
-        # User score has never been recorded before, setting first score as new highscore
-        print("This was your first time playing, so your new highscore is %d." % userScore)
+    if userDetails['highscore'] is 0:
+        # User score has never been recorded before, setting first score as new high score
+        print("This was your first time playing, so your new high score is %d." % userScore)
         userDetails['highscore'] = userScore
         return userDetails
     elif userDetails['highscore'] > userScore:
@@ -215,32 +229,34 @@ def update_user_score(userDetails, userScore):
 
 
 # Program starts here
-# Prompt the user for their username
-userName = prompt_user_for_username()
-# Retrieve the userdetails for that username from the file
-userDetails = get_user_details(userName)
-# Check to see if the user exists, if not prompt them to enter a new password
-# If the user exists, ask them for their password until they get it correct
-if userDetails == None:
-    # user not found im system
-    print("You're new to the system, please enter a password")
-    userPassword = prompt_user_for_password()
-    userDetails = add_user_details(userName, userPassword)
-else:
-    while True:
+while True:
+    os.system('cls')
+    # Prompt the user for their username
+    userName = prompt_user_for_username()
+    # Retrieve the user details for that username from the file
+    userDetails = get_user_details(userName)
+    # Check to see if the user exists, if not prompt them to enter a new password
+    # If the user exists, ask them for their password until they get it correct
+    if userDetails is None:
+        # user not found im system
+        print("You're new to the system, please enter a password")
         userPassword = prompt_user_for_password()
-        actualPasswordFromFile = userDetails.get("password")
-        if userPassword != actualPasswordFromFile:
-            print("Wrong password, try again")
-        else:
-            # User entered correct password, break out of the loop
-            os.system('cls')
-            break
-# Begin the game, record the user's score to userScore
-userScore = play_the_game()
-# Check the user's score to see if it has improved. If it has, send the new value to our local copy of the pickle dict
-update_user_score(userDetails, userScore)
-# Overwrite the pickle file's version of the current users data with the new local version
-update_user_to_system(userName, userDetails)
-# Prompt the user to make sure that they get a chance to read what is on the screen
-press_any_key()
+        userDetails = add_user_details(userName, userPassword)
+    else:
+        while True:
+            userPassword = prompt_user_for_password()
+            actualPasswordFromFile = userDetails.get("password")
+            if userPassword != actualPasswordFromFile:
+                print("Wrong password, try again")
+            else:
+                # User entered correct password, break out of the loop
+                os.system('cls')
+                break
+    # Begin the game, record the user's score to userScore
+    userScore = play_the_game()
+    # Check the user's score to see if it has improved. If it has, send the new value to our local copy of pickle dict
+    update_user_score(userDetails, userScore)
+    # Overwrite the pickle file's version of the current users data with the new local version
+    update_user_to_system(userName, userDetails)
+    # Prompt the user to make sure that they get a chance to read what is on the screen
+    press_any_key()
