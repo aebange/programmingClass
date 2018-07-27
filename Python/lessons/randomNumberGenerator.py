@@ -88,6 +88,11 @@ def get_clean_number(min, max):
             else:
                 # Passes the value of localclean_guess to whatever variable the function is assigned to
                 return local_clean_guess
+        elif raw_guess == 'AC':
+            print("Invoked autocomplete")
+            raw_guess = randomNumber
+            local_clean_guess = int(raw_guess)
+            return local_clean_guess
         else:
             # User entered a string or something strange - clearing screen
             os.system("cls")
@@ -159,8 +164,9 @@ def play_the_game():
 def press_any_key():
     print('Press enter to play again. If you would like to stop, type "exit"')
     user_choice = input()
-    if user_choice is "exit" or user_choice is "Exit":
+    if user_choice == 'exit':
         sys.exit()
+    elif user_choice == 'Exit':
         sys.exit()
     else:
         print("Restarting game!")
