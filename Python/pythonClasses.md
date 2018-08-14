@@ -4,7 +4,8 @@
 ### Creating Classes
 -  **How to create a class:** To create a class, just state the name of the class. It's contents should be indented.
     - ``class Employee:``
-    
+- **__init__:** A method specific to python. Used to construct the attributes of a class.
+
 ### Instances
 - **What are instances?** Instances are specific versions of a class that have their own inputs and outputs.
     ```
@@ -16,10 +17,11 @@
             self.email = first + '.' + last + '@company.com'
             
         employee_1 = Employee('Big', 'Mike', 20000) <--- This is the instance
+- **How instances are represented:** Instances are called in the class as "self". When calling the attributes of an instance in a class, self is used.
 
 ### Class Variables vs Instance Variables
 - **Class Variables:** Variables that are shared across all instances within the same class. Essentially just a variable defined within a class that is added on as an attribute.
-- **Instance Variables:** Variables that are specific to an instance of a class. 
+- **Instance Variables:** Variables or attributes that are specific to an instance of a class. 
 
 ### Public vs Private Attributes
 - **Private objects**: Python does not support "true" private attributes. Rather, the common practice is to name private attributes in a way that should warn programmers not to attempt to call them in order to avoid breaking things.
